@@ -13,5 +13,4 @@ while run:
             exit()
     pygame.display.update()
     clock.tick(FPS)
-    
 pygame.quit()
