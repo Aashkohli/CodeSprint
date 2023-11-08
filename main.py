@@ -59,13 +59,26 @@ def draw_triangle(arr):
         pygame.draw.line(display, (0, 255, 255), (arr[len(arr)-1].x,arr[len(arr)-1].y), (arr[0].x,arr[0].y), 1)
 
 
+#textboxes
+font = pygame.font.Font(None, 40)
+text_input = "Length: " 
+text_rect = pygame.Rect(800, 40, 200, 40)
+rect_color_active = 0, 242, 255
+rect_color_off = 0, 255, 0
+rect_color = rect_color_off
+isTextboxOn = False
+
 while True: 
     display.fill("black")
+    """
     for point in trianglePoints:
+    
         pygame.draw.rect(display,"purple",point)
+    """
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             exit()
+        """
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse = pygame.mouse.get_pressed()
             if mouse[0]:
@@ -82,6 +95,35 @@ while True:
         if event.type == pygame.MOUSEMOTION:
             if(currentlyDragging != None):
                 trianglePoints[currentlyDragging].move_ip(event.rel)
+        """
+                
+        #textboxes
+        
+        #set color
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if text_rect.collidepoint(event.pos):
+                isTextboxOn = True
+            else:
+                isTextboxOn = False
+        if isTextboxOn:
+            rect_color = rect_color_active
+        else:
+            rect_color = rect_color_off
+        #add or remove from text
+        
+        if event.type == pygame.KEYDOWN:
+            if isTextboxOn:
+                
+                if event.key == pygame.K_BACKSPACE:
+                    text_input = text_input[0:len(text_input)-1]
+                elif len(text_input)<13:
+                    if event.unicode.isdigit():
+                        text_input += event.unicode
+                if len(text_input) < 8:
+                    text_input = 'Length: '
+          
+                
+        
 
 
             
@@ -95,4 +137,11 @@ while True:
     drawGraph()
     setXScale(100)
     setYScale(60)
+    
+    #adding textbook to screen
+    pygame.draw.rect(display, rect_color, text_rect, 2)
+    text_surface = font.render(text_input, True,(255, 255, 255))
+    display.blit(text_surface,(text_rect.x+5 ,text_rect.y+5))
+    text_rect.width = max(100, text_surface.get_width()+10)
+    
     pygame.display.update()
