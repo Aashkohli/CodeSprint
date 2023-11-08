@@ -3,7 +3,7 @@ import pygame
 pygame.init()
 pygame.font.Font
 
-display = pygame.display.set_mode((1000,600))
+display = pygame.display.set_mode((1100,660))
 background_color = (0, 0, 0)
 display.fill(background_color)
 pygame.display.set_caption("Math Calculator") 
@@ -15,37 +15,37 @@ def drawGraph():
     #left most line is at x = 50, 10 lines from x 0 to 1000, gets incremented by 100
     # draw x lines
 
-    for i in range(0, 10):
+    for i in range(0, 11):
         if (i == 0):
-            pygame.draw.line(display, (255, 255, 255), (i*100+50, 0), (i*100+50, 600), 3)
+            pygame.draw.line(display, (255, 255, 255), (i*100+50, 0), (i*100+50, 660), 3)
         else:
-            pygame.draw.line(display, (255, 255, 255), (i*100+50, 0), (i*100+50, 600), 1)
+            pygame.draw.line(display, (255, 255, 255), (i*100+50, 0), (i*100+50, 660), 1)
 
     #draw y lines
-    for i in range(0, 10):
-        if (i == 9):
-            pygame.draw.line(display, (255, 255, 255), (0, i*60+30), (1000, i*60+30), 3)
+    for i in range(0, 11):
+        if (i == 10):
+            pygame.draw.line(display, (255, 255, 255), (0, i*60+30), (1100, i*60+30), 3)
         else:
-            pygame.draw.line(display, (255, 255, 255), (0, i*60+30), (1000 ,i*60+30), 1)
+            pygame.draw.line(display, (255, 255, 255), (0, i*60+30), (1100 ,i*60+30), 1)
 
 #is not fully working, can only take in n as 100
 #n is the interval between each y axis
 def setXScale(n):
     
-    for i in range(0, 10):
+    for i in range(0, 11):
         my_font = pygame.font.SysFont('Arial', 15)
         text_surface = my_font.render("" + str(n*(i)), False, (0, 255, 0))
-        display.blit(text_surface, (n*(i)+50-text_surface.get_width()/2,580))
+        display.blit(text_surface, (n*(i)+50-text_surface.get_width()/2,640))
         
     
         
         
    
 def setYScale(n):
-    for i in range(0, 10):
+    for i in range(0, 11):
         my_font = pygame.font.SysFont('Arial', 15)
-        text_surface = my_font.render("" + str(600-n*(i+1)), False, (0, 255, 0))
-        display.blit(text_surface, (30-text_surface.get_width()/2 , n*i+30-text_surface.get_height()/2))
+        text_surface = my_font.render("" + str(660-n*(i+1)), False, (0, 255, 0))
+        display.blit(text_surface, (30-text_surface.get_width()/2 , n*(i)+30-text_surface.get_height()/2))
         
     
 while True: 
