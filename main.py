@@ -76,25 +76,6 @@ def squared_polar(point, center):
   ]
 
 
-# def poly_sort(points):
-#   # Get center of mass
-#   center = [sum(p[0] for p in points) / len(points),
-#             sum(p[1] for p in points) / len(points)]
-
-#   # Sort by polar angle and distance, centered at the center of mass
-
-#   polar_points = []
-#   for point in points:
-#       polar_coord = squared_polar(point, center)
-#       polar_points.append((point[0], point[1], *polar_coord))
-
-#   polar_points.sort(key=lambda x: (x[2], x[3]))
-
-#   # Convert back to tuples
-#   sorted_points = [(x, y) for x, y, _, _ in polar_points]
-
-#   points.clear()
-#   points.extend(sorted_points)
 def poly_sort(points):
   # Get center of mass
   center = [sum(p[0] for p in points) / len(points),
