@@ -78,8 +78,8 @@ def squared_polar(point, center):
 
 def poly_sort(points):
   # Get center of mass
-  center = [sum(p[0] for p in points) / len(points),
-            sum(p[1] for p in points) / len(points)]
+  if(len(points)!=0):
+    center = [sum(p[0] for p in points) / len(points), sum(p[1] for p in points) / len(points)]
 
   # Sort by polar angle, centered at the center of mass
   points.sort(key=lambda p: (math.atan2(p[1] - center[1], p[0] - center[0]) + 2 * math.pi) % (2 * math.pi))
@@ -147,7 +147,6 @@ make function graphable ( in new mode : using escape menu)
 make the graphable menu show stats about the graph
 
 in the shape stuff, make angles, side lenghts, perimeter, and area
-
 
 
 """
