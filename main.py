@@ -7,7 +7,7 @@ WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 
 pygame.init()
-display = pygame.display.set_mode((1100,660))
+display = pygame.display.set_mode((1300, 800))
 background_color = (0, 0, 0)
 display.fill(background_color)
 pygame.display.set_caption("Math Calculator") 
@@ -16,6 +16,9 @@ drag = None
 points = [] 
 mousex = 0
 mousey = 0
+
+mode = 1
+
 FPS = 30
 def drawGraph():
     #top most line is at y = 30, 10 lines from y 0 to 600, gets incremented by 60
@@ -34,8 +37,7 @@ def drawGraph():
             pygame.draw.line(display, (255, 255, 255), (0, i*60+30), (1100, i*60+30), 3)
         else:
             pygame.draw.line(display, (255, 255, 255), (0, i*60+30), (1100 ,i*60+30), 1)
-<<<<<<< Updated upstream
-=======
+
     
     #draw cyan border
     
@@ -46,7 +48,7 @@ triangleAngles = ["", "", ""]
 
 xScale = 120
 yScale = 200
->>>>>>> Stashed changes
+
 
 #is not fully working, can only take in n as 100
 #n is the interval between each y axis
@@ -71,17 +73,7 @@ def draw_triangle(arr):
     if(len(arr)>0):
         pygame.draw.line(display, (0, 255, 255), (arr[len(arr)-1].x,arr[len(arr)-1].y), (arr[0].x,arr[0].y), 1)
 
-<<<<<<< Updated upstream
 
-#textboxes
-font = pygame.font.Font(None, 40)
-text_input = "Length: " 
-text_rect = pygame.Rect(800, 40, 200, 40)
-rect_color_active = 0, 242, 255
-rect_color_off = 0, 255, 0
-rect_color = rect_color_off
-isTextboxOn = False
-=======
 #solve triangle, should give you data about triangle you plotted or it should draw the given triangle from the inputted side lengths and provide data
 #def solve():
     
@@ -185,36 +177,19 @@ class Textbox:
         
     
     
-                    
-    
-    
-                
-              
-                   
-                    
-                
-                    
-        
-        
-                    
-            
-        
-   
-        
-        
-
-
-
-
->>>>>>> Stashed changes
-
-
 def squared_polar(point, center):
   return [
       math.atan2(point[1] - center[1], point[0] - center[0]),
       (point[0] - center[0]) ** 2 + (point[1] - center[1]) ** 2  # Square of distance
   ]
+  
+#solveTriangleBox
 
+font = pygame.font.Font(None, 50)
+solve_text = "Solve"
+solve_rect = pygame.Rect(1140, 10, 120, 45)
+solve_rect_color = (255, 0, 0)
+solve_text_color = (0, 255, 0)
 #clearBox
 
 font = pygame.font.Font(None, 50)
@@ -233,7 +208,7 @@ angleATextBox = Textbox("Angle A: ", pygame.font.Font(None, 30), (255, 255, 255)
 angleBTextBox= Textbox("Angle B: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(1120, 240, 200, 30), (0, 255, 255), (0, 255, 0), 3)
 angleCTextBox= Textbox("Angle C: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(1120, 280, 200, 30), (0, 255, 255), (0, 255, 0), 3)
 
-<<<<<<< Updated upstream
+
 def poly_sort(points):
   # Get center of mass
   if(len(points)!=0):
@@ -241,170 +216,109 @@ def poly_sort(points):
 
   # Sort by polar angle, centered at the center of mass
   points.sort(key=lambda p: (math.atan2(p[1] - center[1], p[0] - center[0]) + 2 * math.pi) % (2 * math.pi))
-=======
->>>>>>> Stashed changes
+
+sideLengthATextBox = Textbox("Length A: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(1120, 80, 200, 30), (0, 255, 255), (0, 255, 0), 5)
+sideLengthBTextBox= Textbox("Length B: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(1120, 120, 200, 30), (0, 255, 255), (0, 255, 0), 5)
+sideLengthCTextBox= Textbox("Length C: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(1120, 160, 200, 30), (0, 255, 255), (0, 255, 0), 5)
+
+angleATextBox = Textbox("Angle A: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(1120, 200, 200, 30), (0, 255, 255), (0, 255, 0 ), 3)
+angleBTextBox= Textbox("Angle B: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(1120, 240, 200, 30), (0, 255, 255), (0, 255, 0), 3)
+angleCTextBox= Textbox("Angle C: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(1120, 280, 200, 30), (0, 255, 255), (0, 255, 0), 3)
+
 while True: 
-    
-    display.fill("black")
-    if len(points) > 1:
-      pygame.draw.polygon(display, (0,255,255), points, 2)
-    for point in points:
-        pygame.draw.circle(display, (0,255,255), point, 3)
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            exit()
-<<<<<<< Updated upstream
+    if (mode == 1):
+        display.fill("black")
+        if len(points) > 1:
+            pygame.draw.polygon(display, (0,255,255), points, 2)
+        for point in points:
+            pygame.draw.circle(display, (0,255,255), point, 3)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                exit()
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                x, y = pygame.mouse.get_pos()
+                if (x <= 1100 and y<630):
+                    
+                    match = next(((i, p) for i, p in enumerate(points) if abs(p[0] - x) + abs(p[1] - y) <= 6), None)
+                    if match:
+                        index, _ = match
+                        points.pop(index)
+                        poly_sort(points)
+                    elif (len(points) < 5):
+                        points.append((x, y))
+                        poly_sort(points)
 
-        elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-            x, y = pygame.mouse.get_pos()
-            match = next(((i, p) for i, p in enumerate(points) if abs(p[0] - x) + abs(p[1] - y) <= 6), None)
-            if match:
-                index, _ = match
-                points.pop(index)
-                poly_sort(points)
-            else:
-                points.append((x, y))
-                poly_sort(points)
+            sideLengthATextBox.handleEvent(event) 
+            sideLengthBTextBox.handleEvent(event)       
+            sideLengthCTextBox.handleEvent(event) 
+            angleATextBox.handleEvent(event) 
+            angleBTextBox.handleEvent(event) 
+            angleCTextBox.handleEvent(event) 
 
-        #textboxes
-
-        #set color
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if text_rect.collidepoint(event.pos):
-                isTextboxOn = True
-            else:
-                isTextboxOn = False
-        if isTextboxOn:
-            rect_color = rect_color_active
-        else:
-            rect_color = rect_color_off
-        #add or remove from text
-
-        if event.type == pygame.KEYDOWN:
-            if isTextboxOn:
-                if event.key == pygame.K_BACKSPACE:
-                    text_input = text_input[0:len(text_input)-1]
-                elif len(text_input)<13:
-                    if event.unicode.isdigit():
-                        text_input += event.unicode
-                if len(text_input) < 8:
-                    text_input = 'Length: '
-
-=======
+                        
+            #solve text hover and click effect
+            mouse_pos = pygame.mouse.get_pos()
             
-        sideLengthATextBox.handleEvent(event) 
-        sideLengthBTextBox.handleEvent(event) 
-        sideLengthCTextBox.handleEvent(event) 
-        angleATextBox.handleEvent(event) 
-        angleBTextBox.handleEvent(event) 
-        angleCTextBox.handleEvent(event) 
+                
+            if solve_rect.collidepoint(mouse_pos):
+                if (event.type == pygame.MOUSEBUTTONDOWN):
+                    solve_text_color = (255, 0, 255)
+                    solve()
+                else:
+                    solve_text_color = 0, 255, 255
+            else:
+                solve_text_color = (0, 255, 0)
+                
+            #clear text hover effect
+            if clear_rect.collidepoint(mouse_pos):
+                if (event.type == pygame.MOUSEBUTTONDOWN):
+                    clear_text_color = (255, 0, 255)
+                    clear()
+                else:
+                    clear_text_color = 0, 255, 255
+            else:
+                clear_text_color = (0, 255, 0)
         
+        clock.tick(FPS)
+
+        #code below
+        drawGraph()
+        setXScale(100)
+        setYScale(60)
+        
+        #solve rect
+        pygame.draw.rect(display, solve_rect_color, solve_rect, 2)
+        solve_surface = font.render(solve_text, True, solve_text_color)
+        display.blit( solve_surface,(solve_rect.x+14, solve_rect.y+5))
+
+        #clear rect
+        pygame.draw.rect(display, clear_rect_color, clear_rect, 2)
+        clear_surface = font.render(clear_text, True, clear_text_color)
+        display.blit( clear_surface,(clear_rect.x+14, clear_rect.y+5))
+
         updateTriangleInfo()
+
+        #adding textbook to screen
         
-              
+            
+        sideLengthATextBox.draw(display) 
+        sideLengthBTextBox.draw(display)
+        sideLengthCTextBox.draw(display)
+        angleATextBox.draw(display) 
+        angleBTextBox.draw(display)
+        angleCTextBox.draw(display)
         
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            mouse = pygame.mouse.get_pressed()
-            if mouse[0]:
-                
-                mousex,mousey = pygame.mouse.get_pos()
-                if (mousex <= 1100 and mousey <= 630):
-                    
-                    
-                
-                    if(len(trianglePoints)<3):
-                        point = pygame.Rect(mousex-4,mousey-4,8,8)
-                        trianglePoints.append(point)
-                    else:
-                        for index,point in enumerate(trianglePoints):
-                            if(point.collidepoint(event.pos)):
-                                currentlyDragging = index
-        if event.type == pygame.MOUSEBUTTONUP:
-            currentlyDragging = None
-        if event.type == pygame.MOUSEMOTION:
-            if(currentlyDragging != None):
-                trianglePoints[currentlyDragging].move_ip(event.rel)
-        
-          
         
        
-                      
-        #solve text hover and click effect
-        mouse_pos = pygame.mouse.get_pos()
+    elif (mode == 2):
+        display.fill("black")
+        if len(points) > 1:
+            pygame.draw.polygon(display, (0,255,255), points, 2)
+        for point in points:
+            pygame.draw.circle(display, (0,255,255), point, 3)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                exit()
         
-            
-        if solve_rect.collidepoint(mouse_pos):
-            if (event.type == pygame.MOUSEBUTTONDOWN):
-                solve_text_color = (255, 0, 255)
-                solve()
-            else:
-                solve_text_color = 0, 255, 255
-        else:
-            solve_text_color = (0, 255, 0)
-            
-        #clear text hover effect
-        if clear_rect.collidepoint(mouse_pos):
-            if (event.type == pygame.MOUSEBUTTONDOWN):
-                clear_text_color = (255, 0, 255)
-                clear()
-            else:
-                clear_text_color = 0, 255, 255
-        else:
-            clear_text_color = (0, 255, 0)
-    
-            
-        
-          
-                
-        
-
-
-    
-    clock.tick(FPS)
->>>>>>> Stashed changes
-    #code below
-    drawGraph()
-    setXScale(100)
-    setYScale(60)
-
-    #adding textbook to screen
-<<<<<<< Updated upstream
-    pygame.draw.rect(display, rect_color, text_rect, 2)
-    text_surface = font.render(text_input, True,(255, 255, 255))
-    display.blit(text_surface,(text_rect.x+5 ,text_rect.y+5))
-    text_rect.width = max(100, text_surface.get_width()+10)
-
     pygame.display.flip()
     clock.tick(FPS)
-"""
-make function graphable ( in new mode : using escape menu)
-
-make the graphable menu show stats about the graph
-
-in the shape stuff, make angles, side lenghts, perimeter, and area
-
-
-"""
-=======
-    
-    #solve rect
-    pygame.draw.rect(display, solve_rect_color, solve_rect, 2)
-    solve_surface = font.render(solve_text, True, solve_text_color)
-    display.blit( solve_surface,(solve_rect.x+14, solve_rect.y+5))
-    
-    #clear rect
-    pygame.draw.rect(display, clear_rect_color, clear_rect, 2)
-    clear_surface = font.render(clear_text, True, clear_text_color)
-    display.blit( clear_surface,(clear_rect.x+14, clear_rect.y+5))
-    
-    
-    sideLengthATextBox.draw(display) 
-    sideLengthBTextBox.draw(display)
-    sideLengthCTextBox.draw(display)
-    angleATextBox.draw(display) 
-    angleBTextBox.draw(display)
-    angleCTextBox.draw(display)
-    
-    
-    pygame.display.update()
->>>>>>> Stashed changes
