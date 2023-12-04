@@ -1,23 +1,28 @@
-import pygame
-import random 
-import math
-
+import pygame,math,Textbox,Point,Button
 
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 
 pygame.init()
 display = pygame.display.set_mode((1300, 800))
+button_image = pygame.image.load("images/blue_square.jpg").convert_alpha()
+switch_triangle = Button.Button(0,0,button_image,1)
+switch_graphing = Button.Button(display.get_width()/2-button_image.get_width()/2,display.get_height()/2-button_image.get_height()/2,button_image,0.75)
+switch_polygon = Button.Button(display.get_width()-button_image.get_width(),display.get_height()-button_image.get_height(),button_image,0.5)
 background_color = (0, 0, 0)
 display.fill(background_color)
 pygame.display.set_caption("Math Calculator") 
 clock = pygame.time.Clock()
 drag = None
-points = [] 
+points = [
+    Point.Point(0, 600, "A"),
+    Point.Point(500, 600, "B"),
+    Point.Point(0, 660, "C")
+] 
 mousex = 0
 mousey = 0
 
-mode = 1
+mode = "main_menu"
 
 FPS = 30
 def drawGraph():
@@ -41,26 +46,14 @@ def drawGraph():
     
     #draw cyan border
     
-class Point:
-    
-    def __init__(self, xcoord, ycoord, label):
-        self.x = xcoord
-        self.y = ycoord
-        self.name = label
-        
-    def getStringPoint(self):
-        
-        return str(self.x) + ", " + str(self.y)
-            
+           
    
 triangleLengths = ["", "", ""]
 triangleAngles = ["", "", ""]
 xCoords = ["", "", ""]
 yCoords = ["", "", ""]
 
-PointA = Point(0, 0, "A")
-PointB = Point(0, 0, "B")
-PointC = Point(0, 0, "C")
+
 
 
 xScale = 120
@@ -99,24 +92,18 @@ def draw_triangle(arr):
 def solveLengths():
     #use to solve triangle with lengths later
     
-    updateTriangleInfo()
+    updateTriangleInfo() 
     
-
- 
-    
-    
-
 def solvePoints():
     #use to solve triangle with points later
     updateTriangleInfo()
     if (isPointsInputValid()):
-        
-        PointA.x = xCoords[0]
-        PointB.x = xCoords[1]
-        PointC.x = xCoords[2]
-        PointA.y = yCoords[0]
-        PointB.y = yCoords[1]
-        PointC.y = yCoords[2]
+        points[0].x = xCoords[0]
+        points[1].x = xCoords[1]
+        points[2].x = xCoords[2]
+        points[0].y = yCoords[0]
+        points[1].y = yCoords[1]
+        points[2].y = yCoords[2]
     else:
         print("Enter a value for each x and y.")
         
@@ -159,7 +146,6 @@ def clearPoints():
     
  
 def isPointsInputValid():
-    
     if (xCoords[0] == "" or xCoords[1] == "" or xCoords[2] == "" or yCoords[0] == "" or yCoords[1] == "" or yCoords[2] == ""):
         return False
     else:
@@ -204,69 +190,14 @@ def updateTriangleInfo():
    
     
     if (isPointsInputValid()):
-        PointA.x = xCoords[0]
-        PointB.x = xCoords[1]
-        PointC.x = xCoords[2]
-        PointA.y = yCoords[0]
-        PointB.y = yCoords[1]
-        PointC.y = yCoords[2]
+        points[0].x = xCoords[0]
+        points[1].x = xCoords[1]
+        points[2].x = xCoords[2]
+        points[0].y = yCoords[0]
+        points[1].y = yCoords[1]
+        points[2].y = yCoords[2]
    
 
-        
-class Textbox:
-    
-    def __init__(self, startingText, font, font_color, rect, rect_color_active, rect_color_off, digitsMax):
-        self.text = startingText
-        self.startingText = startingText
-        self.font = font
-        self.font_color = font_color
-        self.rect = rect
-        self.color = rect_color_off
-        self.color_active = rect_color_active
-        self.color_off = rect_color_off
-        self.isTextboxOn = False
-        self.max = digitsMax
-        
-    
-    
-    def handleEvent(self, event):
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if self.rect.collidepoint(event.pos):
-                self.isTextboxOn = True
-            else:
-                self.isTextboxOn = False
-        if self.isTextboxOn:
-            self.color = self.color_active
-        else:
-            self.color = self.color_off
-        #add or remove from text
-        
-        if event.type == pygame.KEYDOWN:
-            if self.isTextboxOn:
-                
-                if event.key == pygame.K_BACKSPACE:
-                    self.text = self.text[0:len(self.text)-1]
-                elif len(self.text)<(len(self.startingText)+self.max):
-                    if event.unicode.isdigit():
-                        self.text += event.unicode
-                if len(self.text) < len(self.startingText):
-                    self.text  = self.startingText
-                    
-    def draw(self, display):
-        
-        pygame.draw.rect(display, self.color, self.rect, 2)
-        text_surface = self.font.render(self.text, True,(self.font_color))
-        display.blit(text_surface,(self.rect.x+5 ,self.rect.y+5))
-        self.rect.width = max(100, text_surface.get_width()+10)
-        
-    def getText(self):
-        return self.text
-    
-    def setText(self, input):
-        self.text = input
-        
-    
-    
 def squared_polar(point, center):
   return [
       math.atan2(point[1] - center[1], point[0] - center[0]),
@@ -314,33 +245,57 @@ def poly_sort(points):
   # Sort by polar angle, centered at the center of mass
   points.sort(key=lambda p: (math.atan2(p[1] - center[1], p[0] - center[0]) + 2 * math.pi) % (2 * math.pi))
 
-sideLengthATextBox = Textbox("Length A: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(150, 675, 120, 30), (0, 255, 255), (0, 255, 0), 2)
-sideLengthBTextBox= Textbox("Length B: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(150, 710, 120, 30), (0, 255, 255), (0, 255, 0), 2)
-sideLengthCTextBox= Textbox("Length C: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(150, 745, 120, 30), (0, 255, 255), (0, 255, 0), 2)
+sideLengthATextBox = Textbox.Textbox("Length A: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(150, 675, 120, 30), (0, 255, 255), (0, 255, 0), 2)
+sideLengthBTextBox= Textbox.Textbox("Length B: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(150, 710, 120, 30), (0, 255, 255), (0, 255, 0), 2)
+sideLengthCTextBox= Textbox.Textbox("Length C: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(150, 745, 120, 30), (0, 255, 255), (0, 255, 0), 2)
 
-angleATextBox = Textbox("Angle A: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(320, 675, 120, 30), (0, 255, 255), (0, 255, 0 ), 3)
-angleBTextBox= Textbox("Angle B: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(320, 710, 120, 30), (0, 255, 255), (0, 255, 0), 3)
-angleCTextBox= Textbox("Angle C: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(320, 745, 120, 30), (0, 255, 255), (0, 255, 0), 3)
+angleATextBox = Textbox.Textbox("Angle A: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(320, 675, 120, 30), (0, 255, 255), (0, 255, 0 ), 3)
+angleBTextBox= Textbox.Textbox("Angle B: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(320, 710, 120, 30), (0, 255, 255), (0, 255, 0), 3)
+angleCTextBox= Textbox.Textbox("Angle C: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(320, 745, 120, 30), (0, 255, 255), (0, 255, 0), 3)
 
-x_pointA = Textbox("x Point A: ", pygame.font.Font(None, 34), (255, 255, 255), pygame.Rect(615, 690, 120, 34), (0, 255, 255), (0, 255, 0), 2)
-y_pointA = Textbox("y Point A: ", pygame.font.Font(None, 34), (255, 255, 255), pygame.Rect(615, 730, 120, 34), (0, 255, 255), (0, 255, 0), 2)
+x_pointA = Textbox.Textbox("x Point A: ", pygame.font.Font(None, 34), (255, 255, 255), pygame.Rect(615, 690, 120, 34), (0, 255, 255), (0, 255, 0), 2)
+y_pointA = Textbox.Textbox("y Point A: ", pygame.font.Font(None, 34), (255, 255, 255), pygame.Rect(615, 730, 120, 34), (0, 255, 255), (0, 255, 0), 2)
 
-x_pointB = Textbox("x Point B: ", pygame.font.Font(None, 34), (255, 255, 255), pygame.Rect(780, 690, 120, 34), (0, 255, 255), (0, 255, 0), 2)
-y_pointB = Textbox("y Point B: ", pygame.font.Font(None, 34), (255, 255, 255), pygame.Rect(780, 730, 120, 34), (0, 255, 255), (0, 255, 0), 2)
+x_pointB = Textbox.Textbox("x Point B: ", pygame.font.Font(None, 34), (255, 255, 255), pygame.Rect(780, 690, 120, 34), (0, 255, 255), (0, 255, 0), 2)
+y_pointB = Textbox.Textbox("y Point B: ", pygame.font.Font(None, 34), (255, 255, 255), pygame.Rect(780, 730, 120, 34), (0, 255, 255), (0, 255, 0), 2)
 
-x_pointC = Textbox("x Point C: ", pygame.font.Font(None, 34), (255, 255, 255), pygame.Rect(945, 690, 120, 34), (0, 255, 255), (0, 255, 0), 2)
-y_pointC = Textbox("y Point C: ", pygame.font.Font(None, 34), (255, 255, 255), pygame.Rect(945, 730, 120, 34), (0, 255, 255), (0, 255, 0), 2)
+x_pointC = Textbox.Textbox("x Point C: ", pygame.font.Font(None, 34), (255, 255, 255), pygame.Rect(945, 690, 120, 34), (0, 255, 255), (0, 255, 0), 2)
+y_pointC = Textbox.Textbox("y Point C: ", pygame.font.Font(None, 34), (255, 255, 255), pygame.Rect(945, 730, 120, 34), (0, 255, 255), (0, 255, 0), 2)
 
+"""
+
+
+~~~ GAME LOOP
+
+
+"""
 while True: 
-    if (mode == 1):
-        display.fill("black")
-        if len(points) > 1:
-            pygame.draw.polygon(display, (0,255,255), points, 2)
-        for point in points:
-            pygame.draw.circle(display, (0,255,255), point, 3)
+    if (mode == "main_menu"):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
+        display.fill("black")
+        switch_graphing.draw(display)
+        switch_polygon.draw(display)
+        switch_triangle.draw(display)
+        if(switch_triangle.is_clicked()):
+            mode = "triangle_calculator"
+        elif(switch_graphing.is_clicked()):
+            mode = "graphing_calculator"
+        elif(switch_polygon.is_clicked()):
+            mode = "polygon_calculator"
+        
+    elif (mode == "triangle_calculator"):
+        display.fill("black")
+        # if len(points) > 1:
+        #     pygame.draw.polygon(display, (0,255,255), points, 2)
+        for point in points:
+            point.draw(display)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                exit()
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                mode = "main_menu"
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 x, y = pygame.mouse.get_pos()
                 if (x <= 1100 and y<630):
@@ -409,8 +364,6 @@ while True:
                     bottom_clear_text_color = 0, 255, 255
             else:
                 bottom_clear_text_color = (0, 255, 0)
-        
-        clock.tick(FPS)
 
         #code below
         drawGraph()
@@ -455,15 +408,24 @@ while True:
         x_pointC.draw(display)
         y_pointC.draw(display)
        
-    elif (mode == 2):
-        display.fill("black")
-        if len(points) > 1:
-            pygame.draw.polygon(display, (0,255,255), points, 2)
-        for point in points:
-            pygame.draw.circle(display, (0,255,255), point, 3)
+
+        
+    elif (mode == "polygon_calculator"):
+        display.fill(pygame.Color("green"))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
-        
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                mode = "main_menu"
+            
+
+    
+    elif(mode == "graphing_calculator"):
+        display.fill(pygame.Color("purple"))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                exit()
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                mode = "main_menu"
     pygame.display.flip()
     clock.tick(FPS)
