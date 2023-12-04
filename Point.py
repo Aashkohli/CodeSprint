@@ -33,5 +33,5 @@ class Point():
     def get_color(self):
         return self.color
     def draw(self,display):
-        circ = pygame.Rect(self.x,self.y,1,1)
-        pygame.draw.circle(display,self.color,[self.x,self.y],3,0)
+        #circ = pygame.Rect(self.x,self.y,1,1)
+        pygame.draw.circle(display,self.color,(int(self.x),int(self.y)),3,0)

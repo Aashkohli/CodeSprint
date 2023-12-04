@@ -12,6 +12,7 @@ class Button():
 
 	def draw(self, surface):
 		surface.blit(self.image, (self.rect.x, self.rect.y))
+  
 	def is_clicked(self):
 		#get mouse position
 		pos = pygame.mouse.get_pos()

@@ -67,13 +67,13 @@ def setXScale(n):
     for i in range(0, 11):
         my_font = pygame.font.SysFont('Arial', 15)
         text_surface = my_font.render("" + str(n*(i)), False, (0, 255, 0))
-        display.blit(text_surface, (n*(i)+50-text_surface.get_width()/2,640))
+        display.blit(text_surface, (100*(i)+50-text_surface.get_width()/2,640))
 
 def setYScale(n):
     for i in range(0, 11):
         my_font = pygame.font.SysFont('Arial', 15)
         text_surface = my_font.render("" + str(660-n*(i+1)), False, (0, 255, 0))
-        display.blit(text_surface, (30-text_surface.get_width()/2 , n*(i)+30-text_surface.get_height()/2))
+        display.blit(text_surface, (30-text_surface.get_width()/2 , 60*(i)+30-text_surface.get_height()/2))
 
 def draw_triangle(arr):
     for i in range(len(arr)):
@@ -221,16 +221,19 @@ top_clear_text_color = (0, 255, 0)
 
 #bottomsolveTriangleBox
 
+
 font = pygame.font.Font(None, 50)
 bottom_solve_text = "Solve"
-bottom_solve_rect = pygame.Rect(480, 680, 120, 45)
+bottom_solve_rect = pygame.Rect(450, 680, 120, 45)
 bottom_solve_rect_color = (255, 0, 0)
 bottom_solve_text_color = (0, 255, 0)
+
+
 #bottomclearBox
 
 font = pygame.font.Font(None, 50)
 bottom_clear_text = "Clear"
-bottom_clear_rect = pygame.Rect(480, 730, 120, 45)
+bottom_clear_rect = pygame.Rect(450, 730, 120, 45)
 bottom_clear_rect_color = (255, 0, 0)
 bottom_clear_text_color = (0, 255, 0)
 
@@ -249,26 +252,100 @@ sideLengthATextBox = Textbox.Textbox("Length A: ", pygame.font.Font(None, 30), (
 sideLengthBTextBox= Textbox.Textbox("Length B: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(150, 710, 120, 30), (0, 255, 255), (0, 255, 0), 2)
 sideLengthCTextBox= Textbox.Textbox("Length C: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(150, 745, 120, 30), (0, 255, 255), (0, 255, 0), 2)
 
-angleATextBox = Textbox.Textbox("Angle A: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(320, 675, 120, 30), (0, 255, 255), (0, 255, 0 ), 3)
-angleBTextBox= Textbox.Textbox("Angle B: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(320, 710, 120, 30), (0, 255, 255), (0, 255, 0), 3)
-angleCTextBox= Textbox.Textbox("Angle C: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(320, 745, 120, 30), (0, 255, 255), (0, 255, 0), 3)
+angleATextBox = Textbox.Textbox("Angle A: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(300, 675, 120, 30), (0, 255, 255), (0, 255, 0 ), 3)
+angleBTextBox= Textbox.Textbox("Angle B: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(300, 710, 120, 30), (0, 255, 255), (0, 255, 0), 3)
+angleCTextBox= Textbox.Textbox("Angle C: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(300, 745, 120, 30), (0, 255, 255), (0, 255, 0), 3)
 
-x_pointA = Textbox.Textbox("x Point A: ", pygame.font.Font(None, 34), (255, 255, 255), pygame.Rect(615, 690, 120, 34), (0, 255, 255), (0, 255, 0), 2)
-y_pointA = Textbox.Textbox("y Point A: ", pygame.font.Font(None, 34), (255, 255, 255), pygame.Rect(615, 730, 120, 34), (0, 255, 255), (0, 255, 0), 2)
+x_pointA = Textbox.Textbox("x Point A: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(590, 690, 120, 28), (0, 255, 255), (0, 255, 0), 3)
+y_pointA = Textbox.Textbox("y Point A: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(590, 730, 120, 28), (0, 255, 255), (0, 255, 0), 3)
 
-x_pointB = Textbox.Textbox("x Point B: ", pygame.font.Font(None, 34), (255, 255, 255), pygame.Rect(780, 690, 120, 34), (0, 255, 255), (0, 255, 0), 2)
-y_pointB = Textbox.Textbox("y Point B: ", pygame.font.Font(None, 34), (255, 255, 255), pygame.Rect(780, 730, 120, 34), (0, 255, 255), (0, 255, 0), 2)
+x_pointB = Textbox.Textbox("x Point B: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(760, 690, 120, 28), (0, 255, 255), (0, 255, 0), 3)
+y_pointB = Textbox.Textbox("y Point B: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(760, 730, 120, 28), (0, 255, 255), (0, 255, 0), 3)
 
-x_pointC = Textbox.Textbox("x Point C: ", pygame.font.Font(None, 34), (255, 255, 255), pygame.Rect(945, 690, 120, 34), (0, 255, 255), (0, 255, 0), 2)
-y_pointC = Textbox.Textbox("y Point C: ", pygame.font.Font(None, 34), (255, 255, 255), pygame.Rect(945, 730, 120, 34), (0, 255, 255), (0, 255, 0), 2)
+x_pointC = Textbox.Textbox("x Point C: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(930, 690, 120, 28), (0, 255, 255), (0, 255, 0), 3)
+y_pointC = Textbox.Textbox("y Point C: ", pygame.font.Font(None, 30), (255, 255, 255), pygame.Rect(930, 730, 120, 28), (0, 255, 255), (0, 255, 0), 3)
 
-"""
+#stats
+def clearText():
+    pointA_text.text = pointA_text.startingText
+    pointB_text.text = pointB_text.startingText
+    pointC_text.text = pointC_text.startingText
+    sideLengthA_text.text = sideLengthA_text.startingText
+    sideLengthB_text.text = sideLengthB_text.startingText
+    sideLengthC_text.text = sideLengthC_text.startingText
+    angleA_text.text = angleA_text.startingText
+    angleB_text.text = angleB_text.startingText
+    angleC_text.text = pointC_text.startingText
+    perimeter_text.text = perimeter_text.startingText
+    semiperimeter_text.text = semiperimeter_text.startingText
+    heightA_text.text = heightA_text.startingText
+    heightB_text.text = heightB_text.startingText
+    heightC_text.text = heightC_text.startingText
+    angleClassification_text.text = angleClassification_text.startingText
+    triangleClassification_text.text = angleClassification_text.startingText
+    inradius_text.text = inradius_text.startingText
+    incenter_text.text = incenter_text.startingText
+    circumradius_text.text = circumradius_text.startingText
+    circumcenter_text.text = circumcenter_text.startingText
+    medianA_text.text = medianA_text.startingText
+    medianB_text.text = medianB_text.startingText
+    medianC_text.text = medianC_text.startingText
+base = 40
+counter = 30
+pointA_text = Textbox.Textbox("Point A:  ", pygame.font.Font(None, 18), (255, 255, 255), pygame.Rect(1120, base, 120, 20), (0, 255, 255), (0, 255, 255), 3, False)
+base += counter
+pointB_text = Textbox.Textbox("Point B:  ", pygame.font.Font(None, 18), (255, 255, 255), pygame.Rect(1120, base, 150, 20), (0, 255, 255), (0, 255, 255), 3, False)
+base += counter
+pointC_text = Textbox.Textbox("Point C:  ", pygame.font.Font(None, 18), (255, 255, 255), pygame.Rect(1120, base, 180, 20), (0, 255, 255), (0, 255, 255), 3, False)
+base += counter
+sideLengthA_text = Textbox.Textbox("Side Length A:  ", pygame.font.Font(None, 18), (255, 255, 255), pygame.Rect(1120, base, 120, 20), (0, 255, 255), (0, 255, 255), 3, False)
+base += counter
+sideLengthB_text = Textbox.Textbox("Side Length B:  ", pygame.font.Font(None, 18), (255, 255, 255), pygame.Rect(1120, base, 150, 20), (0, 255, 255), (0, 255, 255), 3, False)
+base += counter
+sideLengthC_text = Textbox.Textbox("Side Length C:  ", pygame.font.Font(None, 18), (255, 255, 255), pygame.Rect(1120, base, 180, 20), (0, 255, 255), (0, 255, 255), 3, False)
+base += counter
+angleA_text = Textbox.Textbox("Angle A:  ", pygame.font.Font(None, 18), (255, 255, 255), pygame.Rect(1120, base, 120, 20), (0, 255, 255), (0, 255, 255), 3, False)
+base += counter
+angleB_text = Textbox.Textbox("Angle B:  ", pygame.font.Font(None, 18), (255, 255, 255), pygame.Rect(1120, base, 150, 20), (0, 255, 255), (0, 255, 255), 3, False)
+base += counter
+angleC_text = Textbox.Textbox("Angle C:  ", pygame.font.Font(None, 18), (255, 255, 255), pygame.Rect(1120, base, 180, 20), (0, 255, 255), (0, 255, 255), 3, False)
+base += counter
+perimeter_text = Textbox.Textbox("Perimeter:  ", pygame.font.Font(None, 18), (255, 255, 255), pygame.Rect(1120, base, 180, 20), (0, 255, 255), (0, 255, 255), 3, False)
+base += counter
+semiperimeter_text = Textbox.Textbox("Semiperimeter:  ", pygame.font.Font(None, 18), (255, 255, 255), pygame.Rect(1120, base, 180, 20), (0, 255, 255), (0, 255, 255), 3, False)
+base += counter
+heightA_text = Textbox.Textbox("Height A:  ", pygame.font.Font(None, 18), (255, 255, 255), pygame.Rect(1120, base, 120, 20), (0, 255, 255), (0, 255, 255), 3, False)
+base += counter
+heightB_text = Textbox.Textbox("Height B:  ", pygame.font.Font(None, 18), (255, 255, 255), pygame.Rect(1120, base, 150, 20), (0, 255, 255), (0, 255, 255), 3, False)
+base += counter
+heightC_text = Textbox.Textbox("Height C:  ", pygame.font.Font(None, 18), (255, 255, 255), pygame.Rect(1120, base, 180, 20), (0, 255, 255), (0, 255, 255), 3, False)
+base += counter
+angleClassification_text = Textbox.Textbox("Angle Classification:  ", pygame.font.Font(None, 18), (255, 255, 255), pygame.Rect(1120, base, 180, 20), (0, 255, 255), (0, 255, 255), 3, False)
+base += counter
+triangleClassification_text = Textbox.Textbox("Triangle Classification:  ", pygame.font.Font(None, 18), (255, 255, 255), pygame.Rect(1120, base, 180, 20), (0, 255, 255), (0, 255, 255), 3, False)
+base += counter
+inradius_text = Textbox.Textbox("Inradius:  ", pygame.font.Font(None, 18), (255, 255, 255), pygame.Rect(1120, base, 180, 20), (0, 255, 255), (0, 255, 255), 3, False)
+base += counter
+incenter_text = Textbox.Textbox("Incenter:  ", pygame.font.Font(None, 18), (255, 255, 255), pygame.Rect(1120, base, 180, 20), (0, 255, 255), (0, 255, 255), 3, False)
+base += counter
+circumradius_text = Textbox.Textbox("Circumradius:  ", pygame.font.Font(None, 18), (255, 255, 255), pygame.Rect(1120, base, 180, 20), (0, 255, 255), (0, 255, 255), 3, False)
+base += counter
+circumcenter_text = Textbox.Textbox("Circumcenter:  ", pygame.font.Font(None, 18), (255, 255, 255), pygame.Rect(1120, base, 180, 20), (0, 255, 255), (0, 255, 255), 3, False)
+base += counter
+medianA_text = Textbox.Textbox("Median A:  ", pygame.font.Font(None, 18), (255, 255, 255), pygame.Rect(1120, base, 180, 20), (0, 255, 255), (0, 255, 255), 3, False)
+base += counter
+medianB_text = Textbox.Textbox("Median B:  ", pygame.font.Font(None, 18), (255, 255, 255), pygame.Rect(1120, base, 180, 20), (0, 255, 255), (0, 255, 255), 3, False)
+base += counter
+medianC_text = Textbox.Textbox("Median C:  ", pygame.font.Font(None, 18), (255, 255, 255), pygame.Rect(1120, base, 180, 20), (0, 255, 255), (0, 255, 255), 3, False)
+base += counter
 
 
+
+'''
 ~~~ GAME LOOP
 
 
-"""
+'''
 while True: 
     if (mode == "main_menu"):
         for event in pygame.event.get():
@@ -296,6 +373,7 @@ while True:
                 exit()
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 mode = "main_menu"
+            '''
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 x, y = pygame.mouse.get_pos()
                 if (x <= 1100 and y<630):
@@ -308,6 +386,7 @@ while True:
                     elif (len(points) < 5):
                         points.append((x, y))
                         poly_sort(points)
+            '''
 
             sideLengthATextBox.handleEvent(event) 
             sideLengthBTextBox.handleEvent(event)       
@@ -341,6 +420,7 @@ while True:
                 if (event.type == pygame.MOUSEBUTTONDOWN):
                     top_clear_text_color = (255, 0, 255)
                     clearLengths()
+                    clearText()
                 else:
                     top_clear_rect_clear_text_color = 0, 255, 255
             else:
@@ -360,6 +440,7 @@ while True:
                 if (event.type == pygame.MOUSEBUTTONDOWN):
                     bottom_clear_text_color = (255, 0, 255)
                     clearPoints()
+                    clearText()
                 else:
                     bottom_clear_text_color = 0, 255, 255
             else:
@@ -367,7 +448,7 @@ while True:
 
         #code below
         drawGraph()
-        setXScale(100)
+        setXScale(150)
         setYScale(60)
         
         #top solve rect
@@ -385,12 +466,24 @@ while True:
         bottom_solve_surface = font.render(bottom_solve_text, True, bottom_solve_text_color)
         display.blit( bottom_solve_surface,(bottom_solve_rect.x+14, bottom_solve_rect.y+5))
 
+		
+		
         #clear rect
         pygame.draw.rect(display, bottom_clear_rect_color, bottom_clear_rect, 2)
         bottom_clear_surface = font.render(bottom_clear_text, True, bottom_clear_text_color)
         display.blit( bottom_clear_surface,(bottom_clear_rect.x+14, bottom_clear_rect.y+5))
 
-        updateTriangleInfo()
+        
+        
+
+        pos = pygame.mouse.get_pos()
+
+        if bottom_solve_rect.collidepoint(pos):
+            
+            if pygame.mouse.get_pressed()[0] == 1:
+        
+                updateTriangleInfo()
+                
 
         #adding textbook to screen
         
@@ -407,8 +500,29 @@ while True:
         y_pointB.draw(display)
         x_pointC.draw(display)
         y_pointC.draw(display)
-       
-
+        sideLengthA_text.draw(display)
+        sideLengthB_text.draw(display)
+        sideLengthC_text.draw(display)
+        pointA_text.draw(display)
+        pointB_text.draw(display)
+        pointC_text.draw(display)
+        angleA_text.draw(display)
+        angleB_text.draw(display)
+        angleC_text.draw(display)
+        perimeter_text.draw(display)
+        semiperimeter_text.draw(display)
+        heightA_text.draw(display)
+        heightB_text.draw(display)
+        heightC_text.draw(display)
+        angleClassification_text.draw(display)
+        triangleClassification_text.draw(display)
+        inradius_text.draw(display)
+        incenter_text.draw(display)
+        circumradius_text.draw(display)
+        circumcenter_text.draw(display)
+        medianA_text.draw(display)
+        medianB_text.draw(display)
+        medianC_text.draw(display)
         
     elif (mode == "polygon_calculator"):
         display.fill(pygame.Color("green"))
