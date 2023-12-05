@@ -15,9 +15,9 @@ pygame.display.set_caption("Math Calculator")
 clock = pygame.time.Clock()
 drag = None
 points = [
-    Point.Point(0, 600, "A"),
-    Point.Point(500, 600, "B"),
-    Point.Point(0, 660, "C")
+    Point.Point(50, 630, "A"),
+    Point.Point(500, 630, "B"),
+    Point.Point(250, 200, "C")
 ] 
 mousex = 0
 mousey = 0
@@ -144,7 +144,10 @@ def clearPoints():
     yCoords[2] = ""
    
     
- 
+def updateTriangleImage():
+    pygame.draw.line(display,pygame.Color("purple"),[points[0].x,points[0].y],[points[1].x,points[1].y])
+    pygame.draw.line(display,pygame.Color("purple"),[points[1].x,points[1].y],[points[2].x,points[2].y])
+    pygame.draw.line(display,pygame.Color("purple"),[points[2].x,points[2].y],[points[0].x,points[0].y]) 
 def isPointsInputValid():
     if (xCoords[0] == "" or xCoords[1] == "" or xCoords[2] == "" or yCoords[0] == "" or yCoords[1] == "" or yCoords[2] == ""):
         return False
@@ -298,17 +301,19 @@ while True:
                 mode = "main_menu"
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 x, y = pygame.mouse.get_pos()
-                if (x <= 1100 and y<630):
+                # if (x <= 1100 and y<630):
                     
-                    match = next(((i, p) for i, p in enumerate(points) if abs(p[0] - x) + abs(p[1] - y) <= 6), None)
-                    if match:
-                        index, _ = match
-                        points.pop(index)
-                        poly_sort(points)
-                    elif (len(points) < 5):
-                        points.append((x, y))
-                        poly_sort(points)
-
+                    # match = next(((i, p) for i, p in enumerate(points) if abs(p[0] - x) + abs(p[1] - y) <= 6), None)
+                    # if match:
+                    #     index, _ = match
+                    #     points.pop(index)
+                    #     poly_sort(points)
+                    # elif (len(points) < 5):
+                    #     points.append((x, y))
+                    #     poly_sort(points)
+                pygame.draw.line(display,pygame.Color("purple"),[points[0].x,points[0].y],[points[1].x,points[1].y])
+                pygame.draw.line(display,pygame.Color("purple"),[points[1].x,points[1].y],[points[2].x,points[2].y])
+                pygame.draw.line(display,pygame.Color("purple"),[points[2].x,points[2].y],[points[0].x,points[0].y]) 
             sideLengthATextBox.handleEvent(event) 
             sideLengthBTextBox.handleEvent(event)       
             sideLengthCTextBox.handleEvent(event) 
@@ -369,7 +374,7 @@ while True:
         drawGraph()
         setXScale(100)
         setYScale(60)
-        
+        updateTriangleImage()
         #top solve rect
         pygame.draw.rect(display, top_solve_rect_color, top_solve_rect, 2)
         top_solve_surface = font.render(top_solve_text, True, top_solve_text_color)
