@@ -145,9 +145,9 @@ def clearPoints():
    
     
 def updateTriangleImage():
-    pygame.draw.line(display,pygame.Color("purple"),[points[0].x,points[0].y],[points[1].x,points[1].y])
-    pygame.draw.line(display,pygame.Color("purple"),[points[1].x,points[1].y],[points[2].x,points[2].y])
-    pygame.draw.line(display,pygame.Color("purple"),[points[2].x,points[2].y],[points[0].x,points[0].y]) 
+    pygame.draw.line(display,pygame.Color("purple"),[int(points[0].x),int(points[0].y)],[int(points[1].x),int(points[1].y)])
+    pygame.draw.line(display,pygame.Color("purple"),[int(points[1].x),int(points[1].y)],[int(points[2].x),int(points[2].y)])
+    pygame.draw.line(display,pygame.Color("purple"),[int(points[2].x),int(points[2].y)],[int(points[0].x),int(points[0].y)]) 
 def isPointsInputValid():
     if (xCoords[0] == "" or xCoords[1] == "" or xCoords[2] == "" or yCoords[0] == "" or yCoords[1] == "" or yCoords[2] == ""):
         return False
