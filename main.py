@@ -136,12 +136,12 @@ def clearPoints():
     y_pointC.text = y_pointC.startingText
  
     
-    xCoords[0] = ""
-    xCoords[1] = ""
-    xCoords[2] = ""
-    yCoords[0] = ""
-    yCoords[1] = ""
-    yCoords[2] = ""
+    xCoords[0] = 0
+    xCoords[1] = 0
+    xCoords[2] = 0
+    yCoords[0] = 0
+    yCoords[1] = 0
+    yCoords[2] = 0
    
     
 def updateTriangleImage():
